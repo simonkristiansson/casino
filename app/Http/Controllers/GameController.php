@@ -58,6 +58,53 @@ class GameController extends Controller
         return redirect()->route('game.memory');
     }
 
+    public function coinflip()
+    {
+        return Inertia::render('Coinflip');
+    }
+
+    public function coinflipStart(Request $request)
+    {
+        if(Auth::user()->credits < $request->get('wager')) {
+            return response()->json(['error' => 'Not enough credits'], 500);
+        }
+        $user = Auth::user();
+        $user->credits = $user->credits - $request->get('wager');
+        $user->save();
+        return response()->json(['message' => 'ok'], 200);
+    }
+
+    public function coinflipComplete(Request $request)
+    {
+        $hash = base64_decode($request->get('hash'));
+        $hash = json_decode($hash, true);
+
+        if($hash['wager'] != $request->get('wager')) {
+            return response()->json(['message' => 'Invalid hash'], 500);
+        }
+        if($hash['coinpick'] != $request->get('coinpick')) {
+            return response()->json(['message' => 'Invalid hash'], 500);
+        }
+        if($hash['result'] != $request->get('result')) {
+            return response()->json(['message' => 'Invalid hash'], 500);
+        }
+
+        if($request->get('result') == $request->get('coinpick')) {
+            $user = Auth::user();
+            $user->credits = $user->credits + $request->get('wager') * 2;
+            $user->save();
+
+            Gamelog::create([
+                'user_id' => $user->id,
+                'winnings' => $request->get('wager') * 2,
+                'game' => 'coinflip'
+            ]);
+        }
+
+
+        return redirect()->route('game.coinflip');
+    }
+
     public function gift(Request $request){
         $user = Auth::user();
         if(Auth::user()->credits < $request->get('amount')) {

@@ -33,6 +33,10 @@ Route::middleware('auth')->prefix('games')->group(function () {
     Route::post('/memory', [\App\Http\Controllers\GameController::class, 'memoryStart'])->name('game.memory.start');
     Route::post('/memory/complete', [\App\Http\Controllers\GameController::class, 'memoryComplete'])->name('game.memory.complete');
 
+    Route::get('/coinflip', [\App\Http\Controllers\GameController::class, 'coinflip'])->name('game.coinflip');
+    Route::post('/coinflip', [\App\Http\Controllers\GameController::class, 'coinflipStart'])->name('game.coinflip.start');
+    Route::post('/coinflip/complete', [\App\Http\Controllers\GameController::class, 'coinflipComplete'])->name('game.coinflip.complete');
+
     Route::post('/gift', [\App\Http\Controllers\GameController::class, 'gift'])->name('gift');
 });
 

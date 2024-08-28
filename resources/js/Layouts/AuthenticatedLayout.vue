@@ -40,6 +40,9 @@ const showingNavigationDropdown = ref(false);
                             <div class="ms-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
+                                        <span class="font-medium text-sm text-gray-500">
+                                            {{ $page.props.auth.user.credits }} credits <i class="fa-solid fa-coins mr-3 ml-1"></i>
+                                        </span>
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"

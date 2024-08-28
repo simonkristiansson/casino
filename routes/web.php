@@ -24,4 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->prefix('games')->group(function () {
+    Route::get('/', [\App\Http\Controllers\GameController::class, 'index'])->name('game.index');
+    Route::post('/', [\App\Http\Controllers\GameController::class, 'startGame'])->name('game.start');
+});
+
 require __DIR__.'/auth.php';

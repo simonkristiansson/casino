@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 import {Head, router, useForm} from '@inertiajs/vue3';
 import { ref } from 'vue';
+import Bragwall from "@/Partials/Bragwall.vue";
 
 
 defineProps({
@@ -185,6 +186,8 @@ const playAgain = () => {
                 </div>
             </div>
         </div>
+
+        <Bragwall/>
     </AuthenticatedLayout>
 </template>
 
@@ -209,7 +212,7 @@ const playAgain = () => {
     height: 100%;
     border-radius: 10px;
     transform: rotateY(180deg);
-    opacity: 0.2;
+    opacity: 0;
     transition: opacity 1s;
     pointer-events: none;
 }

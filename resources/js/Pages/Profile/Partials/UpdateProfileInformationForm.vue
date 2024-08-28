@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import TextArea from "@/Components/TextArea.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -19,6 +20,7 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    winning_message: user.winning_message,
 });
 </script>
 
@@ -59,6 +61,19 @@ const form = useForm({
                     v-model="form.email"
                     required
                     autocomplete="username"
+                />
+
+                <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <div>
+                <InputLabel for="winning_message" value="Brag Wall Message" />
+
+                <TextArea
+                    id="winning_message"
+                    type="textarea"
+                    class="mt-1 block w-full"
+                    v-model="form.winning_message"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />

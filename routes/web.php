@@ -33,6 +33,11 @@ Route::middleware('auth')->prefix('games')->group(function () {
     Route::post('/memory', [\App\Http\Controllers\GameController::class, 'memoryStart'])->name('game.memory.start');
     Route::post('/memory/complete', [\App\Http\Controllers\GameController::class, 'memoryComplete'])->name('game.memory.complete');
 
+    Route::post('/gift', [\App\Http\Controllers\GameController::class, 'gift'])->name('gift');
 });
 
+
+Route::middleware('auth')->prefix('api')->group(function () {
+    Route::get('/bragwall', [\App\Http\Controllers\GameController::class, 'bragwall'])->name('bragwall');
+});
 require __DIR__.'/auth.php';

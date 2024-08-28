@@ -4,6 +4,7 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
+import UpdateWinningMessage from "@/Pages/Profile/Partials/UpdateWinningMessage.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -32,6 +33,7 @@ defineProps({
                         class="max-w-xl"
                     />
                 </div>
+
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <UpdatePasswordForm class="max-w-xl" />

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gamelog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class GameController extends Controller
 {
+
     public function index()
     {
 
@@ -44,8 +47,33 @@ class GameController extends Controller
             $user = Auth::user();
             $user->credits = $user->credits + $request->get('wager') * 2;
             $user->save();
+
+            Gamelog::create([
+                'user_id' => $user->id,
+                'winnings' => $request->get('wager') * 2,
+                'game' => 'memory'
+            ]);
         }
 
         return redirect()->route('game.memory');
+    }
+
+    public function gift(Request $request){
+        $user = Auth::user();
+        if(Auth::user()->credits < $request->get('amount')) {
+            return response()->json(['message' => 'Not enough credits'], 500);
+        }
+        $user->credits = $user->credits - $request->get('amount');
+        $user->save();
+        $giftUser = User::find($request->get('user'));
+        $giftUser->credits = $giftUser->credits + $request->get('amount');
+        $giftUser->save();
+        return redirect()->route('games.index');
+    }
+
+    public function bragwall()
+    {
+        $gamelogs = Gamelog::with('user')->orderBy('created_at', 'desc')->limit(20)->get();
+        return $gamelogs;
     }
 }

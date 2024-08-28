@@ -161,9 +161,9 @@ onUnmounted(() => {
 
                         <div v-if="game.completed" class="mt-4">
                             <p class="mb-2">{{ game.status }}</p>
-                            <button @click="playAgain" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <a href="/games/coinflip" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Play again
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

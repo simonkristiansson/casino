@@ -25,6 +25,11 @@ class GameController extends Controller
     public function memoryStart(Request $request)
     {
 
+        //return 500 if wager is below 0
+        if($request->get('wager') < 1) {
+            return response()->json(['message' => 'Invalid hash'], 500);
+        }
+
         $user = Auth::user();
         $user->credits = $user->credits - $request->get('wager');
         $user->save();
@@ -35,10 +40,7 @@ class GameController extends Controller
     {
         $hash = base64_decode($request->get('hash'));
         $hash = json_decode($hash, true);
-        //return 500 if wager is below 0
-        if($request->get('wager') < 0) {
-            return response()->json(['message' => 'Invalid hash'], 500);
-        }
+
         if($hash['timer'] != $request->get('timer')) {
             return response()->json(['message' => 'Invalid hash'], 500);
         }

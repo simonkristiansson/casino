@@ -111,10 +111,17 @@ class GameController extends Controller
     }
 
     public function gift(Request $request){
+
         $user = Auth::user();
+
         if(Auth::user()->credits < $request->get('amount')) {
             return response()->json(['message' => 'Not enough credits'], 500);
         }
+        //check if amount is below 0
+        if($request->get('amount') < 1) {
+            return response()->json(['message' => 'Invalid amount'], 500);
+        }
+
         $user->credits = $user->credits - $request->get('amount');
         $user->save();
         $giftUser = User::find($request->get('user'));

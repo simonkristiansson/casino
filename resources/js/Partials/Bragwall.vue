@@ -33,7 +33,7 @@ onMounted(() => {
                 <div class=" text-xl text-gray-900">Brag wall</div>
                 <p class="mb-2"></p>
                 <div v-for="item in bragwall" :key="item.id">
-                    <p class="text-sm text-gray-500">{{ item.user.name }} won {{item.winnings}} credits in {{item.game}} and says  "<span v-html="item.user.winning_message"></span>"</p>
+                    <p class="text-sm text-gray-500">{{ item.user.name }} won {{item.winnings}} credits in {{item.game}} and says  "{{ item.user.winning_message }}"</p>
                 </div>
             </div>
         </div>
